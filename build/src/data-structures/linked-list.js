@@ -1,0 +1,74 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+class ListNode {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+        this.prev = null;
+    }
+}
+class BaseList {
+    constructor() {
+        this.length = 0;
+        this.head = null;
+    }
+}
+class LinkedList extends BaseList {
+    append(value) {
+        const node = new ListNode(value);
+        if (!this.head) {
+            this.head = node;
+            return this;
+        }
+        let current = this.head;
+        while (current.next) {
+            current = current.next;
+        }
+        current.next = node;
+        this.length++;
+        return this;
+    }
+    prepend(value) {
+        const node = new ListNode(value);
+        node.next = this.head;
+        this.head = node;
+        this.length++;
+        return this;
+    }
+    remove(value) {
+        var _a;
+        if (this.head) {
+            if (this.head.value === value) {
+                this.head = this.head.next;
+                this.length--;
+            }
+            else {
+                let current = this.head;
+                while (current.next) {
+                    if (current.next.value === value) {
+                        current.next = (_a = current.next) === null || _a === void 0 ? void 0 : _a.next;
+                        this.length--;
+                        break;
+                    }
+                    current = current.next;
+                }
+            }
+        }
+        return this.length;
+    }
+    lookup(value) {
+        if (this.head) {
+            let current = this.head;
+            while (current) {
+                if (current.value === value)
+                    return current;
+                current = current.next;
+            }
+        }
+        return null;
+    }
+}
+exports.default = {
+    LinkedList,
+};
+//# sourceMappingURL=linked-list.js.map
