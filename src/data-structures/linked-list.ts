@@ -87,15 +87,15 @@ export class DoublyLinkedList<T> extends BaseList<T> implements IList<T> {
     const node = new ListNode<T>(value);
     if (!this.head) {
       this.head = node;
-      return this;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = node;
+      node.prev = current;
     }
 
-    let current = this.head;
-    while (current.next) {
-      current = current.next;
-    }
-    current.next = node;
-    node.prev = current;
     this.length++;
     return this;
   }
@@ -116,7 +116,10 @@ export class DoublyLinkedList<T> extends BaseList<T> implements IList<T> {
     const node = this.lookup(value);
     if (node) {
       if (node.prev) node.prev = node.next;
-      else this.head = null;
+      else {
+        this.head = node.next;
+        if (this.head) this.head.prev = null;
+      }
       this.length--;
     }
     return this.length;
