@@ -30,14 +30,14 @@ export class LinkedList<T> extends BaseList<T> implements IList<T> {
     const node = new ListNode<T>(value);
     if (!this.head) {
       this.head = node;
-      return this;
+    } else {
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
+      }
+      current.next = node;
     }
 
-    let current = this.head;
-    while (current.next) {
-      current = current.next;
-    }
-    current.next = node;
     this.length++;
     return this;
   }

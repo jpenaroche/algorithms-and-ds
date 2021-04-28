@@ -10,13 +10,13 @@
   "license": "Apache-2.0",
   "keywords": [],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "coverage": "npm run test -- --coverage",
     "lint": "gts lint",
     "clean": "gts clean",
     "compile": "tsc",
     "fix": "gts fix",
     "prepare": "npm run compile",
-    "pretest": "npm run compile",
     "posttest": "npm run lint"
   },
   "devDependencies": {

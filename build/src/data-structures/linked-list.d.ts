@@ -21,4 +21,10 @@ export declare class LinkedList<T> extends BaseList<T> implements IList<T> {
     remove(value: T): number;
     lookup(value: T): ListNode<T> | null;
 }
+export declare class DoublyLinkedList<T> extends BaseList<T> implements IList<T> {
+    append(value: T): this;
+    prepend(value: T): this;
+    remove(value: T): number;
+    lookup(value: T): ListNode<T> | null;
+}
 export {};

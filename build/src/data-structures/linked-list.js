@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LinkedList = exports.ListNode = void 0;
+exports.DoublyLinkedList = exports.LinkedList = exports.ListNode = void 0;
 class ListNode {
     constructor(value) {
         this.value = value;
@@ -71,4 +71,55 @@ class LinkedList extends BaseList {
     }
 }
 exports.LinkedList = LinkedList;
+class DoublyLinkedList extends BaseList {
+    append(value) {
+        const node = new ListNode(value);
+        if (!this.head) {
+            this.head = node;
+            return this;
+        }
+        let current = this.head;
+        while (current.next) {
+            current = current.next;
+        }
+        current.next = node;
+        node.prev = current;
+        this.length++;
+        return this;
+    }
+    prepend(value) {
+        const head = this.head;
+        const node = new ListNode(value);
+        if (head) {
+            head.prev = node;
+        }
+        node.next = head;
+        this.head = node;
+        this.length++;
+        return this;
+    }
+    remove(value) {
+        const node = this.lookup(value);
+        if (node) {
+            if (node.prev)
+                node.prev = node.next;
+            else
+                this.head = null;
+            this.length--;
+        }
+        return this.length;
+    }
+    lookup(value) {
+        if (this.head) {
+            let current = this.head;
+            while (current) {
+                if (current.value === value)
+                    return current;
+                current = current.next;
+            }
+        }
+        return null;
+    }
+}
+exports.DoublyLinkedList = DoublyLinkedList;
 //# sourceMappingURL=linked-list.js.map
