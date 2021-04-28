@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LinkedList = exports.ListNode = void 0;
 class ListNode {
     constructor(value) {
         this.value = value;
@@ -7,6 +8,7 @@ class ListNode {
         this.prev = null;
     }
 }
+exports.ListNode = ListNode;
 class BaseList {
     constructor() {
         this.length = 0;
@@ -68,7 +70,5 @@ class LinkedList extends BaseList {
         return null;
     }
 }
-exports.default = {
-    LinkedList,
-};
+exports.LinkedList = LinkedList;
 //# sourceMappingURL=linked-list.js.map

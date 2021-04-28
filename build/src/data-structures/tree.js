@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BinaryTree = void 0;
 class TreeNode {
     constructor(value) {
         this.left = null;
@@ -12,7 +13,7 @@ class BaseTree {
         this.root = null;
     }
 }
-class BinarySearchTree extends BaseTree {
+class BinaryTree extends BaseTree {
     insert(value) {
         if (!this.root) {
             this.root = new TreeNode(value);
@@ -83,7 +84,5 @@ class BinarySearchTree extends BaseTree {
         return tree;
     }
 }
-exports.default = {
-    BinarySearchTree,
-};
+exports.BinaryTree = BinaryTree;
 //# sourceMappingURL=tree.js.map
