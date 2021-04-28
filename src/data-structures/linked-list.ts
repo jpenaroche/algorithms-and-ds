@@ -49,6 +49,7 @@ export class LinkedList<T> extends BaseList<T> implements IList<T> {
     this.length++;
     return this;
   }
+
   remove(value: T) {
     if (this.head) {
       if (this.head.value === value) {
@@ -68,6 +69,59 @@ export class LinkedList<T> extends BaseList<T> implements IList<T> {
     }
     return this.length;
   }
+
+  lookup(value: T) {
+    if (this.head) {
+      let current = this.head;
+      while (current) {
+        if (current.value === value) return current;
+        current = current.next as ListNode<T>;
+      }
+    }
+    return null;
+  }
+}
+
+export class DoublyLinkedList<T> extends BaseList<T> implements IList<T> {
+  append(value: T) {
+    const node = new ListNode<T>(value);
+    if (!this.head) {
+      this.head = node;
+      return this;
+    }
+
+    let current = this.head;
+    while (current.next) {
+      current = current.next;
+    }
+    current.next = node;
+    node.prev = current;
+    this.length++;
+    return this;
+  }
+
+  prepend(value: T) {
+    const head = this.head;
+    const node = new ListNode<T>(value);
+    if (head) {
+      head.prev = node;
+    }
+    node.next = head;
+    this.head = node;
+    this.length++;
+    return this;
+  }
+
+  remove(value: T) {
+    const node = this.lookup(value);
+    if (node) {
+      if (node.prev) node.prev = node.next;
+      else this.head = null;
+      this.length--;
+    }
+    return this.length;
+  }
+
   lookup(value: T) {
     if (this.head) {
       let current = this.head;

@@ -10,11 +10,13 @@ export class Queue<T> implements IQueue<T> {
   head: ListNode<T> | null;
   tail: ListNode<T> | null;
   length: number;
+
   constructor(value: T) {
     this.head = new ListNode<T>(value);
     this.tail = new ListNode<T>(value);
     this.length = 1;
   }
+
   check() {
     if (this.length) return (this.head as ListNode<T>).value;
     return null;
