@@ -5,10 +5,10 @@ interface IList<T> {
   lookup(value: T): ListNode<T> | null;
 }
 
-class ListNode<T> {
+export class ListNode<T> {
   value: T;
   next: ListNode<T> | null;
-  prev?: ListNode<T> | null;
+  prev: ListNode<T> | null;
   constructor(value: T) {
     this.value = value;
     this.next = null;
@@ -25,7 +25,7 @@ class BaseList<T> {
   }
 }
 
-class LinkedList<T> extends BaseList<T> implements IList<T> {
+export class LinkedList<T> extends BaseList<T> implements IList<T> {
   append(value: T) {
     const node = new ListNode<T>(value);
     if (!this.head) {
@@ -79,8 +79,3 @@ class LinkedList<T> extends BaseList<T> implements IList<T> {
     return null;
   }
 }
-
-export default {
-  LinkedList,
-  ListNode,
-};

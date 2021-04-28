@@ -20,7 +20,7 @@ interface ITree<T> {
   print(target: TreeNode<T>): TreeNode<T>;
 }
 
-class BinaryTree<T> extends BaseTree<T> implements ITree<T> {
+export class BinaryTree<T> extends BaseTree<T> implements ITree<T> {
   insert(value: T) {
     if (!this.root) {
       this.root = new TreeNode(value);
@@ -83,7 +83,3 @@ class BinaryTree<T> extends BaseTree<T> implements ITree<T> {
     return tree;
   }
 }
-
-export default {
-  BinaryTree,
-};
