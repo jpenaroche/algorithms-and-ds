@@ -82,4 +82,81 @@ export class BinaryTree<T> extends BaseTree<T> implements ITree<T> {
     tree.right = node.right === null ? null : this.print(node.right);
     return tree;
   }
+
+  bfs(): T[] {
+    const result: T[] = [];
+    const queue = [];
+    queue.push(this.root);
+    while (queue.length) {
+      const currentNode = queue.shift() as TreeNode<T>;
+      result.push(currentNode.value);
+      if (currentNode.left) {
+        queue.unshift(currentNode.left);
+      }
+      if (currentNode.right) {
+        queue.unshift(currentNode.right);
+      }
+    }
+    return result;
+  }
+
+  bfsr(queue = [this.root], result: T[] = []): T[] {
+    if (!queue.length) {
+      return result;
+    }
+    const currentNode = queue.shift() as TreeNode<T>;
+    result.push(currentNode.value);
+    if (currentNode.left) {
+      queue.unshift(currentNode.left);
+    }
+    if (currentNode.right) {
+      queue.unshift(currentNode.right);
+    }
+    return this.bfsr(queue, result);
+  }
+
+  dfsInOrder() {
+    const traverse = (node: TreeNode<T> | null, result: T[] = []): T[] => {
+      if (!node) return result;
+      if (node.left) {
+        return traverse(node.left);
+      }
+      result.push(node.value);
+      if (node.right) {
+        return traverse(node.right);
+      }
+      return result;
+    };
+    return traverse(this.root);
+  }
+
+  dfsPreOrder() {
+    const traverse = (node: TreeNode<T> | null, result: T[] = []): T[] => {
+      if (!node) return result;
+      result.push(node.value);
+      if (node.left) {
+        return traverse(node.left);
+      }
+      if (node.right) {
+        return traverse(node.right);
+      }
+      return result;
+    };
+    return traverse(this.root);
+  }
+
+  dfsPostOrder() {
+    const traverse = (node: TreeNode<T> | null, result: T[] = []): T[] => {
+      if (!node) return result;
+      if (node.left) {
+        return traverse(node.left);
+      }
+      if (node.right) {
+        return traverse(node.right);
+      }
+      result.push(node.value);
+      return result;
+    };
+    return traverse(this.root);
+  }
 }

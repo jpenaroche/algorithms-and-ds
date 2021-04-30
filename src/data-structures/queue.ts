@@ -7,36 +7,42 @@ interface IQueue<T> {
 }
 
 export class Queue<T> implements IQueue<T> {
-  head: ListNode<T> | null;
-  tail: ListNode<T> | null;
+  first: ListNode<T> | null;
+  last: ListNode<T> | null;
   length: number;
 
-  constructor(value: T) {
-    this.head = new ListNode<T>(value);
-    this.tail = new ListNode<T>(value);
-    this.length = 1;
+  constructor() {
+    this.first = null;
+    this.last = null;
+    this.length = 0;
   }
 
   check() {
-    if (this.length) return (this.head as ListNode<T>).value;
+    if (this.length) return (this.first as ListNode<T>).value;
     return null;
   }
 
   dequeue() {
-    if (this.length) {
-      const tail = this.tail;
-      this.tail = (tail as ListNode<T>).prev;
-      (this.tail as ListNode<T>).next = null;
+    if (!this.length) {
+      this.last = null; //Double Checking
+      return null;
+    } else {
+      const result = this.first as ListNode<T>;
+      this.first = (this.first as ListNode<T>).next;
       this.length--;
-      return tail ? tail.value : null;
+      return result.value;
     }
-    return null;
   }
 
   enqueue(value: T) {
     const newNode = new ListNode(value);
-    newNode.next = this.head;
-    this.head = newNode;
+    if (!this.length) {
+      this.last = newNode;
+      this.first = newNode;
+    } else {
+      (this.last as ListNode<T>).next = newNode;
+      this.last = newNode;
+    }
     return ++this.length;
   }
 }

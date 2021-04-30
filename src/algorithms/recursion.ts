@@ -12,7 +12,24 @@ const fibonacci = (number: number): number => {
   return fibonacci(number - 1) + fibonacci(number - 2);
 };
 
+const fibonacciDP = () => {
+  const memo: {
+    [k: number]: number;
+  } = {};
+  function calc(n: number): number {
+    if (n < 2) {
+      return n;
+    }
+    if (n in memo) return memo[n];
+    else {
+      memo[n] = calc(n - 1) + calc(n - 2);
+      return memo[n];
+    }
+  }
+  return calc;
+};
 export default {
+  fibonacciDP,
   fibonacci,
   factorial,
 };

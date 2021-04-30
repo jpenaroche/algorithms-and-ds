@@ -8,60 +8,54 @@ interface IStack<T> {
 }
 
 export class Stack<T> implements IStack<T> {
-  head: ListNode<T> | null;
-  tail: ListNode<T> | null;
+  top: ListNode<T> | null;
+  bottom: ListNode<T> | null;
   length: number;
 
   constructor() {
-    this.head = null;
-    this.tail = null;
+    this.top = null;
+    this.bottom = null;
     this.length = 0;
   }
 
   peek() {
-    if (this.length) return (this.tail as ListNode<T>).value;
+    if (this.length) return (this.top as ListNode<T>).value;
     return null;
   }
 
   unshift(value: T) {
-    if (!this.head) {
+    const node = new ListNode(value);
+    if (!this.length) {
       this.push(value);
     } else {
-      const node = new ListNode(value);
-      node.next = this.head;
-      this.head = node;
+      (this.bottom as ListNode<T>).next = node;
+      this.bottom = node;
       this.length++;
     }
     return this;
   }
 
   pop() {
-    let result = null;
-    if (this.tail) {
-      if (this.tail === this.head) {
-        result = this.tail.value;
-        this.tail = this.head = null;
-      } else {
-        let current = this.head;
-        while ((current as ListNode<T>).next !== this.tail) {
-          current = current?.next as ListNode<T> | null;
-        }
-        result = this.tail.value;
-        this.tail = current;
-      }
+    if (!this.length) {
+      this.bottom = null; //Double Checking
+      return null;
+    } else {
+      const result = this.top as ListNode<T>;
+      this.top = result.next;
       this.length--;
+      return result.value;
     }
-    return result;
   }
 
   push(value: T) {
-    const node = new ListNode<T>(value);
-    if (this.tail) this.tail.next = node;
-    else {
-      this.head = node;
-      this.tail = node;
+    const node = new ListNode(value);
+    if (!this.length) {
+      this.top = node;
+      this.bottom = node;
+    } else {
+      node.next = this.top;
+      this.top = node;
     }
-
     return ++this.length;
   }
 }
